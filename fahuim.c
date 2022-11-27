@@ -37,9 +37,20 @@ int main_page()
      {
         printf("~");
      }
-    printf("\n\n\n\n                         Enter Your Choice: ");
+
     char n;
-    scanf("%c",&n);
+    while(1)
+    {
+        printf("\n\n\n                         Enter Your Choice: ");
+        scanf("%c",&n);
+        fflush(stdin);
+        if(n != '1' && n != '2' && n != '3')
+        {
+            printf("\n -----------------------You Entered Wrong Number------------------------\n  ------------------------Enter Correct Number------------------------\n");
+            continue;
+        }
+        else break;
+    }
     return n;
 }
 
