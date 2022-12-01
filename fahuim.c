@@ -80,7 +80,7 @@ int main()
     {
         system("cls");
         system("color 30");
-        printf("\n\n\n\n\n\t\t       @@_@_\n\t\t         `'*'`  Cafe Nirvana\n\t\t\t\t\t`'*'`-@@_@\n\n");
+        printf("\n\n\n\n\n\t\t       @@_@_\n\t\t         `'*'`  Play Bytes Restaurant\n\t\t\t\t\t`'*'`-@@_@\n\n");
         printf("\n\n\n\t\t\tThis session order recieved : %d\n\n",token);
         printf("\t\t\tThis session bill paid      : %d\n\n",payment_counter);
         if(payment_counter<token)
@@ -89,6 +89,8 @@ int main()
         {
             printf("\n\n\n\n\n\n");
         }
+
+        getch();
         return 0;
     }
 
@@ -204,8 +206,8 @@ int menu_order()
 
     }
     system("cls");
-   printf("\n\n\n\n\n\n\n\n\n\n\t\tThanks for your order. We are getting ready the dishes.\n\t\tUntil then, have some selfies with friends. Enjoy!\n\n\n\n\n\t\t\t  <Enter 1 to check your bill>\n\t\t\tEnter your choice: ");
-    printf("To play game press 4\n");
+    printf("\n\n\n\n\n\n\n\n\n\n\t\tThanks for your order. We are getting ready the dishes.\n\t\tUntil then, have some selfies with friends. Enjoy!\n\n\n\n\n\t\t\t  <Enter 1 to check your bill>\n\t\t\tEnter your choice: ");
+
     scanf("%d",&decision);
     printf("\n\n\n\n\n\n\n\n");
 
