@@ -147,25 +147,48 @@ int main_page()
 int menu_order()
 {
 
-    int arID[10],decision,arqty[10],Bill[10],counter=0;
+    int arID[11],decision,arqty[11],Bill[11],counter=0;
     work:
     system("cls");
     system("color 4F");
     printf("\n\t\t\t\tFOOD MENU\n\t\t\t\t---------\n");
-    printf("\n\tBUNS :\n\n");
-    printf("\t1. Beef Burger ...................... 120/=\t  \n");
-    printf("\t2. Hot Dog ..........................  40/=\n");
-    printf("\t3. Donuts ...........................  70/=\t \n");
-    printf("\t4. French Fries (FnF Pack) ..........  90/=\t \n");
-    printf("\t\t\t\t\t\t\t \n\n\tCHICKEN :\n\n");
-    printf("\t5. Chicken Breast ...................  90/=\n");
-    printf("\t6. Chicken Wings ....................  65/=\n");
-    printf("\n\tDESSERTS :\n\t\t\t\t\t\t\t \n");
-    printf("\t7. Ice Cream ........................  65/=\t  \n");
-    printf("\t8. Sweets ........................... 230/=\t \n");
+
+    printf("\n\tSides :\n\n");
+    printf("\t1. French Fries (150gm)                .......................... 90/=\t  \n");
+    printf("\t2. Chicken Fingers(5PCS)               .......................... 130/=\t  \n");
+
+    printf("\n\tBURGERS :\n\n");
+    printf("\t3. Chicken Burger                      .......................... 150/=\n\n\t(1:1 - Prepared with chicken patty & special sauce)\t\n\n");
+    printf("\t4. Chicken Cheese Burger               .......................... 170/=\n\n\t(1:1 - Prepared with chicken patty, cheese & special sauce)\t\n\n");
+    printf("\t5. Smocky BBQ Cheese Burger            .......................... 190/=\n\n\t(1:1 - Prepared with chicken patty, bbq sauce & cheese)\t\n\n");
+    printf("\t6. Chicken with Baccon Burger          .......................... 220/=\n\n\t(1:1 - Prepared with chicken patty & beef bacon)\t\n\n");
+    printf("\t7. Chicken with sausage Burger         .......................... 250/=\n\n\t(1:1 - Prepared with chicken patty, cheese & special sauce)\t\n\n");
+    printf("\t8. Chicken Cheese Blast Burger         .......................... 250/=\n\n\t(1:1 - Prepared with 2 pcs melted cheese inside a double chicken patty & cheese outside)\t\n\n");
+    printf("\t9. Double Decker Chicken Cheese Burger .......................... 270/=\n\n\t(1:1 - Prepared with 2 pcs chicken patty & 2 pcs cheese)\t\n\n");
+    printf("\t10. Giganto Chicken                    .......................... 350/=\n\n\t(1:1 - Prepared with giant chicken patty, 2 pcs cheese, 2 pcs beef bacon & bbq sauce)\t\n\n");
+
+    printf("\n\tCHICKEN :\n\n");
+    printf("\t11. Chicken Breast ...................  90/=\n");
+    printf("\t12. Chicken Wings ....................  65/=\n");
+
+    printf("\n\tPizza :\n\n");
+    printf("\t13. Spicy Sausage                       .......................... 350/=\n\t\n");
+    printf("\t14. Creamy Chicken & Sausage            .......................... 450/=\n\t\n");
+    printf("\t15. Kolongko - The Disgrace             .......................... 770/=\n\t\n");
+    printf("\t16. Simple Er Modhe Gorgeous (SMG)      .......................... 550/=\n\t\n");
+
+    printf("\n\tLove in a Cup :\n\n");
+    printf("\t17. Choco Fudge      .......................... 190/=\n\n\t(A heavenly creation of rich chocolate fudge & smooth chocolate cream in a cup)\t\n\n");
+    printf("\t18. Velvety Red      .......................... 190/=\n\n\t(Divine taste of red velvet cake paired up with smooth velvety cream cheese filling for the ultimate dessert pairing)\t\n\n");
+    printf("\t19. Oreo & Cheese    .......................... 190/=\n\n\t(Crunchy oreo crust & a creamy cheesecake filling together to make the ultimate cookies & cream dessert)\t\n\n");
+    printf("\t20. Tiro-Miss-U      .......................... 190/=\n\n\t(An elegant & rich layed italian dessert made with cookies & cheese, combined with fluffy coffee-flavored goodness)\t\n\n ");
+
+
     printf("\n\tDRINKS :\n\n");
-    printf("\t9.  Coca-Cola ........................ 25/=\n");
-    printf("\t10. Mirinda   ........................ 25/=\n");
+    printf("\t21. Coca-Cola      ........................ 40/=\n");
+    printf("\t22. Pepsi        ........................ 40/=\n");
+    printf("\t23. Mountain Dew   ........................ 40/=\n");
+    printf("\t21. Water          ........................ 15/=\n");
     printf("\n\n\tOrder your dish: (Enter 0 to finish order)\n");
     for(;;)
     {
@@ -182,6 +205,7 @@ int menu_order()
     }
     system("cls");
    printf("\n\n\n\n\n\n\n\n\n\n\t\tThanks for your order. We are getting ready the dishes.\n\t\tUntil then, have some selfies with friends. Enjoy!\n\n\n\n\n\t\t\t  <Enter 1 to check your bill>\n\t\t\tEnter your choice: ");
+    printf("To play game press 4\n");
     scanf("%d",&decision);
     printf("\n\n\n\n\n\n\n\n");
 
@@ -204,10 +228,6 @@ int menu_order()
 
 }
 
-
-
-
-
 void Bill_show(int arID[],int arqty[],int counter)
 {
 
@@ -216,8 +236,8 @@ void Bill_show(int arID[],int arqty[],int counter)
     system("color B0");
 
     int i,sum=0;
-    int costs[10]={120,40,70,90,90,65,65,230,25,25};
-    char items[10][16]={"Beef Burger","Hot Dog","Donuts","French Fries","Chicken Breast","Chicken Wings","Ice Cream","Sweets","Coca-Cola","Mirinda"};
+    int costs[11]={120,40,70,90,90,65,65,230,25,25,40};
+    char items[11][16]={"Beef Burger","Hot Dog","Donuts","French Fries","Chicken Breast","Chicken Wings","Ice Cream","Sweets","Coca-Cola","Mirinda","mountain dew"};
     printf("\n\nYour Bill:\n\n\n\t\tItem(s)\t\t     Quantity\t\t    Cost\n\n\n\n");
 
     for(i=0;i<counter;i++)
