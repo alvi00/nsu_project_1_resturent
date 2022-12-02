@@ -288,7 +288,7 @@ void Bill_show(int arID[],int arqty[],int counter)
     tokens[token]=sum;
     printf("\tYour token number is %d. Use this token while paying the bill.\n\n\n\n\n\t\t\t",token);
     again_game:
-    printf("\t<enter (1) to give another order>\n\n\t\t\t<enter (2) to go to the main menu>");
+    printf("<enter (1) to give another order>\n\n\t\t\t<enter (2) to go to the main menu>");
     printf("\n\t\n\t\t\t<enter (3) to win some discount>");
 
 
@@ -1500,4 +1500,3 @@ void number_guess_game()
     system("cls");
 }
 ////Number Guess code ends here
-
