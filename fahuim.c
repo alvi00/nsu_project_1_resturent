@@ -28,6 +28,7 @@ int  match, CENACEscore, humanScore;
 
 //Discount checkers
 int cenaceDiscount = 0;
+int flappyBirdDiscount = 0;
 
 
 int token = 0,tokens[50],payment_counter=0;
@@ -60,12 +61,7 @@ int main()
     char k,j,n,d;
     k = main_page();
 
-    if(k>'3' || k<'1')
-    {
-
-        printf("\n\n -----------------------You Entered Wrong Number------------------------\n  ------------------------Enter Correct Number------------------------\n");
-    }
-    else if(k=='1')
+    if(k=='1')
     {
         menu_order();
 
@@ -78,19 +74,29 @@ int main()
 
     else if(k=='3')
     {
+        int billClear = 1;
         system("cls");
         system("color 30");
         printf("\n\n\n\n\n\t\t       @@_@_\n\t\t         `'*'`  Play Bytes Restaurant\n\t\t\t\t\t`'*'`-@@_@\n\n");
         printf("\n\n\n\t\t\tThis session order recieved : %d\n\n",token);
         printf("\t\t\tThis session bill paid      : %d\n\n",payment_counter);
-        if(payment_counter<token)
-        {printf("\t\t\t\tYet to pay          : %d\n\n\n\n\n\n",token-payment_counter);}
-        else
+        for(int i = 0; i < 50; i ++)
         {
-            printf("\n\n\n\n\n\n");
+            if(tokens[i] != 0)
+            {
+                printf("\t\t\t\tYet to pay          : %dtk (token %d)\n\n",tokens[i], i);
+                billClear = 0;
+            }
+        }
+        if(!billClear)
+        {
+            printf("\n\n\t\t\t\tYou are about to leave without clearing payment.");
+            getch();
+            Bill_Payment();
         }
 
-        getch();
+
+        Sleep(2000);
         return 0;
     }
 
@@ -100,6 +106,7 @@ int main()
 int main_page()
 {
     int i;
+    system("title Play Bytes Restaurant");
     system("cls");
     system("color 0B");
 
@@ -130,6 +137,7 @@ int main_page()
     char n;
     while(1)
     {
+        fflush(stdin);
         printf("\n\n\n                         Enter Your Choice: ");
         scanf("%c",&n);
         fflush(stdin);
@@ -252,13 +260,15 @@ void Bill_show(int arID[],int arqty[],int counter)
     token ++;
     tokens[token]=sum;
 
-    Choice:
     printf("\tYour token number is %d. Use this token while paying the bill.\n\n\n\n\n\t\t\t<enter (1) to give another order>\n\n\t\t\t<enter (2) to go to the main menu>",token);
-    printf("\n\n\t\n\t\t\t<enter (3) to win some discount>");
-    printf("\n\n\t\n\t\t\tEnter your choice: ");
+    printf("\n\t\n\t\t\t<enter (3) to win some discount>");
 
 
-    scanf("%d",&n);
+    do{
+        printf("\n\n\t\n\t\t\tEnter your choice: ");
+        scanf("%d",&n);
+    }while(n != 1 && n != 2 && n != 3);
+
     printf("\n\n\n");
     if(n==1)
     {
@@ -271,40 +281,43 @@ void Bill_show(int arID[],int arqty[],int counter)
     else if(n == 3)
     {
         discount();
-        goto Choice;
+        main();
     }
-
-
-
-
 }
 
 
 int discount()
 {
     cenaceDiscount = 0; //0 = false, 1 = true
+    flappyBirdDiscount = 0;
 
     int choice;
     system("cls");
+    printf("\n\n\tCategory 1: Choose any one of these two.......... discount: 10%c",'%');
 
     printf("\n\n\t\t1. Play Tic Tac Toe with CENACE");
-    printf("\n\n\t\t2. Play ");
-    printf("\n\n\t\t3. Play ");
-    printf("\n\n\t\t4. Play ");
+    printf("\n\n\t\t2. Play Flappy Bird");
 
-    printf("\n\n\t\tEnter your choice: ");
-    scanf("%d", &choice);
+    do{
+        printf("\n\n\t\tEnter your choice: ");
+        scanf("%d", &choice);
 
-    if(choice == 1)
+    }while(choice != 1 && choice != 2);
+
+
+    if(choice == 1)//Play Tic Tac Toe with CENACE
     {
-        printf("\n\n\t\tPlay at least 5 matches for winning discount");
-        printf("\n\tPress any key to continue");
+        system("cls");
+        printf("\n\n\t\tPlay at least 5 matches to win discount");
+        printf("\n\t\tPress any key to continue");
         getch();
         system("cls");
         Sleep(250);
         CENACE();
         if(match >= 5 && (humanScore > CENACEscore))
         {
+            printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
+            getch();
             cenaceDiscount = 1;
         }
         else
@@ -313,6 +326,30 @@ int discount()
             getch();
             system("cls");
         }
+    }
+
+    else if(choice == 2)
+    {
+        system("cls");
+        printf("\n\n\t\tPlay at least 5 matches to win discount");
+        printf("\n\t\tPress any key to continue");
+        getch();
+        system("cls");
+        Sleep(250);
+        //flappyBird();
+        if(1)//score > 10
+        {
+            printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
+            getch();
+            flappyBirdDiscount = 1;
+        }
+        else
+        {
+            printf("\n\tBetter luck next time :)");
+            getch();
+            system("cls");
+        }
+
     }
 }
 
@@ -390,9 +427,10 @@ void Bill_Payment()
                 printf("_");
             }
 
-        printf("\n\n\n\n\n\t\t\tThanks for your payment.\n\t\t\t    Have a great day!\n",changer);
+        printf("\n\n\n\n\n\t\t\tThanks for your payment.\n\t\t\t    Have a great day!\n");
 
 
+        tokens[k] = 0;
 
     }
     printf("\n\n\t\t\t<Enter (1) to pay another bill.>\n\t\t\t<Enter (2) to go back main menu>\n\n\n\t\t\tEnter your choice: \t");
@@ -406,6 +444,8 @@ void Bill_Payment()
            goto redo;
         }
 
+
+        tokens[k] = 0;
 }
 
 
@@ -1148,19 +1188,19 @@ void CENACE_intro()
     printf("\n\t%c%c%c%c%c%c%c  %c%c%c%c%c%c%c  ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
     printf("%c%c%c%c%c%c%c   %c%c", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
 
-    printf("\n\t%c%c       %c%c       ", 219, 219);
+    printf("\n\t%c%c       %c%c       ", 219, 219, 219, 219);
     printf("%c%c   %c%c   %c%c", 219, 219, 219, 219, 219, 219);
 
-    printf("\n\t%c%c       %c%c       ", 219, 219);
+    printf("\n\t%c%c       %c%c       ", 219, 219, 219, 219);
     printf("%c%c   %c%c   %c%c", 219, 219, 219, 219, 219, 219);
 
-    printf("\n\t%c%c       %c%c%c%c%c%c%c  ", 219, 219);
+    printf("\n\t%c%c       %c%c%c%c%c%c%c  ", 219, 219, 219, 219);
     printf("%c%c   %c%c   %c%c", 219, 219, 219, 219, 219, 219);
 
-    printf("\n\t%c%c       %c%c       ", 219, 219);
+    printf("\n\t%c%c       %c%c       ", 219, 219, 219, 219);
     printf("%c%c   %c%c   %c%c", 219, 219, 219, 219, 219, 219);
 
-    printf("\n\t%c%c       %c%c       ", 219, 219);
+    printf("\n\t%c%c       %c%c       ", 219, 219, 219, 219);
     printf("%c%c   %c%c   %c%c", 219, 219, 219, 219, 219, 219);
 
     printf("\n\t%c%c%c%c%c%c%c  %c%c%c%c%c%c%c  ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
@@ -1260,3 +1300,4 @@ void scoreUpdate()
     }
 }
 //CENACE source code ends here
+
