@@ -5,6 +5,10 @@
 #include <time.h>
 #include <string.h>
 
+
+
+
+
 //CENACE definitions
 #define INITIAL_POINT "2"
 #define MAX_POINT 300
@@ -12,6 +16,10 @@
 #define WIN_REWORD 3
 #define DRAW_REWORD 1
 #define PUNISHMENT 1
+
+
+
+
 
 //CENACE globals
 int  player;
@@ -26,22 +34,23 @@ int  auto_train_count, total_training_match;
 int  exit_CENACE;
 int  match, CENACEscore, humanScore;
 
+//Number Guess globals
+int number_guess_game_score;
+
 //Discount checkers
 int cenaceDiscount = 0;
 int flappyBirdDiscount = 0;
-
+int numberGuessDiscount = 0;
+int rockPaperScissorsDiscount = 0;
 
 int token = 0,tokens[50],payment_counter=0;
 
-int main_page();
-int menu_order();
-void Bill_show(int arID[],int arqty[],int counter);
-void Bill_Payment();
-int discount();
 
 
-//GAMES
-int CENACE();
+
+
+//CENACE functions
+int  CENACE();
 void choose_player();
 void inputmove();
 void newboard();
@@ -54,6 +63,19 @@ void CENACE_intro();
 void updateGraphing_data();
 void updateGraphing_data();
 void scoreUpdate();
+
+//Number Guess functions
+int  number_guess();
+void number_guess_game();
+
+
+
+
+int main_page();
+int menu_order();
+void Bill_show(int arID[],int arqty[],int counter);
+void Bill_Payment();
+int discount();
 
 int main()
 {
@@ -94,7 +116,6 @@ int main()
             getch();
             Bill_Payment();
         }
-
 
         Sleep(2000);
         return 0;
@@ -290,8 +311,12 @@ int discount()
 {
     cenaceDiscount = 0; //0 = false, 1 = true
     flappyBirdDiscount = 0;
+    numberGuessDiscount = 0;
+    rockPaperScissorsDiscount = 0;
 
     int choice;
+
+    //Category 1
     system("cls");
     printf("\n\n\tCategory 1: Choose any one of these two.......... discount: 10%c",'%');
 
@@ -339,6 +364,66 @@ int discount()
         //flappyBird();
         if(1)//score > 10
         {
+            printf("\n\tCongratulations! You have got 10%c discount.\n",'%');
+            getch();
+            flappyBirdDiscount = 1;
+        }
+        else
+        {
+            printf("\n\tBetter luck next time :)");
+            getch();
+            system("cls");
+        }
+    }
+
+    //Category 2
+    system("cls");
+    printf("\n\n\tCategory 2: Choose any one of these two.......... discount: 5%c",'%');
+
+    printf("\n\n\t\t1. Play Number Guess");
+    printf("\n\n\t\t2. Play Rock paper scissors");
+
+    do{
+        printf("\n\n\t\tEnter your choice: ");
+        scanf("%d", &choice);
+
+    }while(choice != 1 && choice != 2);
+
+
+    if(choice == 1)// Play Number Guess
+    {
+        system("cls");
+        printf("\n\n\t\tPlay at least 5 matches to win discount");
+        printf("\n\t\tPress any key to continue");
+        getch();
+        system("cls");
+        Sleep(250);
+        number_guess();
+        if(number_guess_game_score >= 5)
+        {
+            printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
+            getch();
+            numberGuessDiscount = 1;
+        }
+        else
+        {
+            printf("\n\tBetter luck next time :)");
+            getch();
+            system("cls");
+        }
+    }
+
+    else if(choice == 2)
+    {
+        system("cls");
+        printf("\n\n\t\tPlay at least 5 matches to win discount");
+        printf("\n\t\tPress any key to continue");
+        getch();
+        system("cls");
+        Sleep(250);
+        //flappyBird();
+        if(1)//score > 10
+        {
             printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
             getch();
             flappyBirdDiscount = 1;
@@ -349,7 +434,6 @@ int discount()
             getch();
             system("cls");
         }
-
     }
 }
 
@@ -368,6 +452,18 @@ void Bill_Payment()
 
     //calculating distount
     if(cenaceDiscount)
+    {
+        tokens[k] -= (tokens[k] * 10)/100;
+    }
+    if(flappyBirdDiscount)
+    {
+        tokens[k] -= (tokens[k] * 10)/100;
+    }
+    if(numberGuessDiscount)
+    {
+        tokens[k] -= (tokens[k] * 5)/100;
+    }
+    if(rockPaperScissorsDiscount)
     {
         tokens[k] -= (tokens[k] * 5)/100;
     }
@@ -1300,4 +1396,94 @@ void scoreUpdate()
     }
 }
 //CENACE source code ends here
+
+
+
+
+//Number Guess code starts here
+int number_guess()
+{
+    while(1)
+    {
+        printf("\n\n\t\t\t\t\tPlay At Least 5 times To Get Discount\n\n");
+        printf("\n\n");
+        printf("\t\t                        $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $    Select any of them -          $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $    1.  PLAY GAME                 $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $    2.  EXIT                      $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
+        int a;
+        scanf("%d",&a);
+        system("cls");
+
+        if(a==1)
+        {
+            number_guess_game();
+        }
+        else if(a==2)
+        {
+            return 0;
+
+        }
+        else
+        {
+        printf("\n -----------------------You Entered Wrong Number------------------------\n  ------------------------Enter Correct Number------------------------\n");
+        }
+    }
+    return 0;
+}
+void number_guess_game()
+{
+    number_guess_game_score=0;
+    srand(time(NULL));      //seedig random number
+
+    int number=rand() % 100 +1; // to get number beewtween 1 to 100
+
+    printf("YOU WILL GET 5 TRIES TO GUESS\n\n");
+
+    int guess=0,count=0;
+    do
+    {
+        printf("Enter a guess From 1 to 100:");
+        scanf("%d",&guess);
+
+        if (guess == number)
+        {    system("cls");
+            printf("You got it!\n");
+            printf("The number is %d\n",number);
+            number_guess_game_score++;
+            printf("Your score is :%d\n",number_guess_game_score);
+            Sleep(1500);
+            getch();
+            main();
+        }
+        else if (guess < number)
+        {
+            printf("Guess higher!\n");
+        }
+        else
+        {
+                printf("Guess lower!\n");
+        }
+
+        count++;
+        if(count==5)
+        {
+            system("cls");
+            printf("Sorry You lose\nThe number was %d\n",number);
+            printf("Your Score is :%d",number_guess_game_score);
+            Sleep(1500);
+            getch();
+        }
+    } while (count!=5);
+    system("cls");
+}
+////Number Guess code ends here
 
