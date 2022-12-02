@@ -7,8 +7,6 @@
 
 
 
-
-
 //CENACE definitions
 #define INITIAL_POINT "2"
 #define MAX_POINT 300
@@ -16,8 +14,6 @@
 #define WIN_REWORD 3
 #define DRAW_REWORD 1
 #define PUNISHMENT 1
-
-
 
 
 
@@ -47,8 +43,6 @@ int token = 0,tokens[50],payment_counter=0;
 
 
 
-
-
 //CENACE functions
 int  CENACE();
 void choose_player();
@@ -67,7 +61,6 @@ void scoreUpdate();
 //Number Guess functions
 int  number_guess();
 void number_guess_game();
-
 
 
 
