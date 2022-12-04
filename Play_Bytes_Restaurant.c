@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <stdbool.h>                     //to get bolian variable
 
 
 
@@ -14,6 +15,11 @@
 #define WIN_REWORD 3
 #define DRAW_REWORD 1
 #define PUNISHMENT 1
+
+//Rock Paper Scissors definations
+#define ROCK 1
+#define PAPER 2
+#define SCISSORS 3
 
 
 
@@ -29,6 +35,9 @@ char auto_train;
 int  auto_train_count, total_training_match;
 int  exit_CENACE;
 int  match, CENACEscore, humanScore;
+
+//Rock Paper Scissors globals
+int score;
 
 //Number Guess globals
 int number_guess_game_score;
@@ -57,6 +66,10 @@ void CENACE_intro();
 void updateGraphing_data();
 void updateGraphing_data();
 void scoreUpdate();
+
+//Rock Paper Scissors functions
+void game();                            //full function for the game
+int rock_paper_scissors();
 
 //Number Guess functions
 int  number_guess();
@@ -287,22 +300,21 @@ void Bill_show(int arID[],int arqty[],int counter)
     token ++;
     tokens[token]=sum;
     printf("\tYour token number is %d. Use this token while paying the bill.\n\n\n\n\n\t\t\t",token);
-    again_game:
     printf("<enter (1) to give another order>\n\n\t\t\t<enter (2) to go to the main menu>");
     printf("\n\t\n\t\t\t<enter (3) to win some discount>");
 
 
-    for(;;)
-    {
-        choice_again:
+    do{
         printf("\n\n\t\n\t\t\tEnter your choice: ");
         scanf("%d",&n);
+        if(n != 1 && n != 2 && n != 3)
+        {
+            printf("\n -----------------------You Entered Wrong Number------------------------\n  ------------------------Enter Correct Number------------------------\n");
 
-    if(n != 1 && n != 2 && n != 3)
-    {
-      printf("\n -----------------------You Entered Wrong Number------------------------\n  ------------------------Enter Correct Number------------------------\n");
-      goto choice_again;
-    }
+        }
+    }while(n != 1 && n != 2 && n != 3);
+
+
     if(n==1)
     {
         menu_order();
@@ -314,11 +326,12 @@ void Bill_show(int arID[],int arqty[],int counter)
     else if(n == 3)
     {
         discount();
-        goto again_game;
-
+        printf("\n\n\t\n\t\t\tPay your bill from main menu.");
+        getch();
+        main();
     }
+
 }
-   }
 
 int discount()
 {
@@ -354,7 +367,7 @@ int discount()
         CENACE();
         if(match >= 5 && (humanScore > CENACEscore))
         {
-            printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
+            printf("\n\tCongratulations! You have got 10%c discount.\n",'%');
             getch();
             cenaceDiscount = 1;
         }
@@ -434,12 +447,12 @@ int discount()
         getch();
         system("cls");
         Sleep(250);
-        //flappyBird();
-        if(1)//score > 10
+        rock_paper_scissors();
+        if(score >= 5)
         {
             printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
             getch();
-            flappyBirdDiscount = 1;
+            rockPaperScissorsDiscount = 1;
         }
         else
         {
@@ -455,34 +468,38 @@ int discount()
 void Bill_Payment()
 {
 
-    int k,i,cash,changer,n;
+    int k,i,cash,changer,n, totalDiscount = 0;
     redo:
     payment_counter++;
     system("cls");
     system("color 3F");
     printf("\n\n\n\t\t\tEnter your token number: ");
     scanf("%d",&k);
-    printf("\t\t\tYour Total Bill is = %d",tokens[k]);
+    printf("\n\t\t\tYour Total Bill is = %d",tokens[k]);
 
     //calculating distount
     if(cenaceDiscount)
     {
-        tokens[k] -= (tokens[k] * 10)/100;
+        totalDiscount += 10;
     }
     if(flappyBirdDiscount)
     {
-        tokens[k] -= (tokens[k] * 10)/100;
+        totalDiscount += 10;
     }
     if(numberGuessDiscount)
     {
-        tokens[k] -= (tokens[k] * 5)/100;
+        totalDiscount += 5;
     }
     if(rockPaperScissorsDiscount)
     {
-        tokens[k] -= (tokens[k] * 5)/100;
+        totalDiscount += 5;
     }
-
-    printf("\n\t\t\tAfter discount = %d", tokens[k]);
+    tokens[k] -= (tokens[k] * totalDiscount)/100;
+    if(totalDiscount)
+    {
+        printf("\n\t\t\tTotal discount = %d%c",totalDiscount, '%');
+        printf("\n\t\t\tAfter discount = %d", tokens[k]);
+    }
 
     work:
             printf("\n\t\t\tPay your bill: ");
@@ -543,6 +560,13 @@ void Bill_Payment()
         tokens[k] = 0;
 
     }
+
+    tokens[k] = 0;
+    cenaceDiscount = 0; //0 = false, 1 = true
+    flappyBirdDiscount = 0;
+    numberGuessDiscount = 0;
+    rockPaperScissorsDiscount = 0;
+    totalDiscount = 0;
     printf("\n\n\t\t\t<Enter (1) to pay another bill.>\n\t\t\t<Enter (2) to go back main menu>\n\n\n\t\t\tEnter your choice: \t");
         scanf("%d",&n);
         if(n==2)
@@ -553,9 +577,6 @@ void Bill_Payment()
         {
            goto redo;
         }
-
-
-        tokens[k] = 0;
 }
 
 
@@ -1499,4 +1520,139 @@ void number_guess_game()
     } while (count!=5);
     system("cls");
 }
-////Number Guess code ends here
+//Number Guess code ends here
+
+//Rock paper scissors starts here
+int rock_paper_scissors()
+{
+    while(1)
+    {
+        printf("\n\n\t\t\t\t\tPlay At Least 5 times To Get Discount\n\n");
+        printf("\n\n");
+        printf("\t\t                        $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $    Select any of them -          $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $    1.  PLAY GAME                 $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $    2.  EXIT                      $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $                                  $\n");
+        printf("\t\t                        $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
+        int a;
+        scanf("%d",&a);
+        system("cls");
+
+        if(a==1)
+        {
+            game();
+        }
+        else if(a==2)
+        {
+            return 0;
+        }
+        else
+        {
+        printf("\n -----------------------You Entered Wrong Number------------------------\n  ------------------------Enter Correct Number------------------------\n");
+        }
+    }
+
+
+    return 0;
+}
+void game()
+{
+    int t=3;
+    while(t--)
+    {
+    srand(time(NULL));                     //seeding to genarate random numbers with time
+    int  n;
+    int  player_throw = 0;
+    char ch_player_throw;                 //to store the player given numbers
+    int  ai_throw=0;                        //to store the ai given numbers
+    bool draw=false;                       //it will check the game is draw or not
+
+    do
+    {
+        printf("Select your throw\n");
+        printf("1) ROCK\n");
+        printf("2) PAPER\n");
+        printf("3) SCISSORS\n");
+        printf("SELECTION: ");
+        while(1)
+        {
+            ch_player_throw = getch();          //to store player numbers
+            player_throw = (int)(ch_player_throw - 48);
+
+            if(player_throw != 1 && player_throw != 2 && player_throw != 3)
+            {
+                Beep(450, 250);
+                continue;
+            }
+            else break;
+        }
+        printf("%c", ch_player_throw);
+        getch();
+
+
+        ai_throw = (rand() % 3) + 1;           //random number will give me 0 to infinity numbers so to get 1 2 3, It will mod that intezer and mod with 3 and it will give me 0,1,2 and to get 1,2,4 there is a plus 1
+
+        if(ai_throw==ROCK)                     // TO LET THE PLAYER KNOW WHAT AI GIVEN THEM
+        {
+            printf("\n AI GIVES ROCK.\n");
+        }
+        else if(ai_throw==PAPER)
+        {
+            printf("\n AI GIVES PAPER.\n");
+        }
+        else if(ai_throw== SCISSORS)
+        {
+            printf("\n AI GIVES SCISSORS.\n");
+        }
+
+        draw =false;
+        if (player_throw == ROCK && ai_throw == SCISSORS)
+        {
+             printf("\nROCK beats SCISSORS. YOU WIN.\n\n");
+             score++;
+        }
+
+        else if (player_throw == ROCK && ai_throw == PAPER)
+        {
+              printf("\nPAPER beats ROCK. YOU LOSE.\n\n");
+        }
+       else if (player_throw == SCISSORS && ai_throw == PAPER)
+        {
+              printf("\nSCISSORS beats PAPER. YOU WIN.\n\n");
+                score++;
+        }
+        else if (player_throw == SCISSORS && ai_throw == ROCK)
+        {
+              printf("\nROCK beats SCISSORS. YOU LOSE.\n\n");
+        }
+         else if (player_throw == PAPER && ai_throw == ROCK)
+         {
+              printf("\nPAPER beats ROCK. YOU WIN.\n\n");
+               score++;
+         }
+         else if (player_throw == PAPER && ai_throw == SCISSORS)
+         {
+         printf("\nSCISSORS beats PAPER. YOU LOSE.\n\n");
+         }
+    else
+    {
+      printf("\nDRAW! Play again.\n\n");            // if both player and AI throw the same, it's a draw
+      printf("YOUR SCORE IS :%d\n\n",score);
+      draw = true;
+    }
+
+    } while (draw);                                  // the game will run as long as it is draw
+    printf("YOUR SCORE IS :%d\n\n\n",score);
+    }
+    getch();
+    system("cls");
+}
+//Rock paper scissors ends here
+
