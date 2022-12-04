@@ -66,7 +66,7 @@ void CENACE_intro();
 void updateGraphing_data();
 void updateGraphing_data();
 void scoreUpdate();
-
+void load();
 //Rock Paper Scissors functions
 void game();                            //full function for the game
 int rock_paper_scissors();
@@ -1460,6 +1460,7 @@ int number_guess()
 
         if(a==1)
         {
+            load();
             number_guess_game();
         }
         else if(a==2)
@@ -1547,6 +1548,7 @@ int rock_paper_scissors()
 
         if(a==1)
         {
+            load();
             game();
         }
         else if(a==2)
@@ -1654,4 +1656,15 @@ void game()
     getch();
     system("cls");
 }
+void load()
+{
+    int r,q;
+    printf("\n\n\n\t\t\tloading...");
+    for(r=1;r<=20;r++){
+    for(q=0;q<=100000000;q++);   //to display the character slowly
+    printf("%c",177);}
+    getch();
+    system("cls");
+}
+
 //Rock paper scissors ends here
