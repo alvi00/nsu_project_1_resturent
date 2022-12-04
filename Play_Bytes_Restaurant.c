@@ -347,13 +347,13 @@ int discount()
     printf("\n\n\tCategory 1: Choose any one of these two.......... discount: 10%c",'%');
 
     printf("\n\n\t\t1. Play Tic Tac Toe with CENACE");
-    printf("\n\n\t\t2. Play Flappy Bird");
+    //printf("\n\n\t\t2. Play Flappy Bird");
 
     do{
         printf("\n\n\t\tEnter your choice: ");
         scanf("%d", &choice);
 
-    }while(choice != 1 && choice != 2);
+    }while(choice != 1/* && choice != 2*/);
 
 
     if(choice == 1)//Play Tic Tac Toe with CENACE
@@ -379,28 +379,28 @@ int discount()
         }
     }
 
-    else if(choice == 2)
-    {
-        system("cls");
-        printf("\n\n\t\tPlay at least 5 matches to win discount");
-        printf("\n\t\tPress any key to continue");
-        getch();
-        system("cls");
-        Sleep(250);
-        //flappyBird();
-        if(1)//score > 10
-        {
-            printf("\n\tCongratulations! You have got 10%c discount.\n",'%');
-            getch();
-            flappyBirdDiscount = 1;
-        }
-        else
-        {
-            printf("\n\tBetter luck next time :)");
-            getch();
-            system("cls");
-        }
-    }
+    // else if(choice == 2)
+    // {
+    //     system("cls");
+    //     printf("\n\n\t\tPlay at least 5 matches to win discount");
+    //     printf("\n\t\tPress any key to continue");
+    //     getch();
+    //     system("cls");
+    //     Sleep(250);
+    //     //flappyBird();
+    //     if(1)//score > 10
+    //     {
+    //         printf("\n\tCongratulations! You have got 10%c discount.\n",'%');
+    //         getch();
+    //         flappyBirdDiscount = 1;
+    //     }
+    //     else
+    //     {
+    //         printf("\n\tBetter luck next time :)");
+    //         getch();
+    //         system("cls");
+    //     }
+    // }
 
     //Category 2
     system("cls");
@@ -1655,4 +1655,3 @@ void game()
     system("cls");
 }
 //Rock paper scissors ends here
-
