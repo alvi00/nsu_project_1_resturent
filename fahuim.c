@@ -217,14 +217,27 @@ int menu_order()
     for(;;)
     {
         counter++;
+        give_arID_again:
         printf("\t Enter Food ID: ");
         scanf("%d",&arID[counter-1]);
+        if(arID[counter-1]>26)
+        {
+            printf("\n -----------------------You Entered Wrong Number------------------------\n  ------------------------Enter Correct Number------------------------\n");
+            goto give_arID_again;
+        }
+
         if(arID[counter-1]==0)
         {
             break;
         }
+        give_arqtry_again:
         printf("\t Enter Quantity: ");
         scanf("%d",&arqty[counter-1]);
+        if(arqty[counter-1]<0)
+        {
+         printf("\n -----------------------You Entered Wrong Number------------------------\n  ------------------------Enter Correct Number------------------------\n");
+         goto give_arqtry_again;
+        }
 
     }
     system("cls");
@@ -273,17 +286,23 @@ void Bill_show(int arID[],int arqty[],int counter)
     printf("\n\n\n\n\t\t\t\t\t\t\t  Total = %d\n\n\n\n",sum);
     token ++;
     tokens[token]=sum;
-
-    printf("\tYour token number is %d. Use this token while paying the bill.\n\n\n\n\n\t\t\t<enter (1) to give another order>\n\n\t\t\t<enter (2) to go to the main menu>",token);
+    printf("\tYour token number is %d. Use this token while paying the bill.\n\n\n\n\n\t\t\t",token);
+    again_game:
+    printf("<enter (1) to give another order>\n\n\t\t\t<enter (2) to go to the main menu>");
     printf("\n\t\n\t\t\t<enter (3) to win some discount>");
 
 
-    do{
+    for(;;)
+    {
+        choice_again:
         printf("\n\n\t\n\t\t\tEnter your choice: ");
         scanf("%d",&n);
-    }while(n != 1 && n != 2 && n != 3);
 
-    printf("\n\n\n");
+    if(n != 1 && n != 2 && n != 3)
+    {
+      printf("\n -----------------------You Entered Wrong Number------------------------\n  ------------------------Enter Correct Number------------------------\n");
+      goto choice_again;
+    }
     if(n==1)
     {
         menu_order();
@@ -295,10 +314,11 @@ void Bill_show(int arID[],int arqty[],int counter)
     else if(n == 3)
     {
         discount();
-        main();
+        goto again_game;
+
     }
 }
-
+   }
 
 int discount()
 {
@@ -423,6 +443,7 @@ int discount()
         }
         else
         {
+
             printf("\n\tBetter luck next time :)");
             getch();
             system("cls");
@@ -1479,4 +1500,3 @@ void number_guess_game()
     system("cls");
 }
 ////Number Guess code ends here
-
