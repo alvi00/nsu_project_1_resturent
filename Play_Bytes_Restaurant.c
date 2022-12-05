@@ -370,7 +370,7 @@ int discount()
             printf("\n\tCongratulations! You have got 10%c discount.\n",'%');
             getch();
             cenaceDiscount = 1;
-            discountToken[token] = 1;
+            discountToken[token] += 10;
         }
         else
         {
@@ -431,7 +431,7 @@ int discount()
             printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
             getch();
             numberGuessDiscount = 1;
-            discountToken[token] = 1;
+            discountToken[token] += 5;
         }
         else
         {
@@ -455,7 +455,7 @@ int discount()
             printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
             getch();
             rockPaperScissorsDiscount = 1;
-            discountToken[token] = 1;
+            discountToken[token] += 5;
         }
         else
         {
@@ -471,7 +471,7 @@ int discount()
 void Bill_Payment()
 {
 
-    int k,i,cash,changer,n, totalDiscount = 0;
+    int k,i,cash,changer,n;
     redo:
     system("cls");
     system("color 3F");
@@ -481,26 +481,11 @@ void Bill_Payment()
     if(tokens[k]) payment_counter++;
 
     //calculating distount
-    if(cenaceDiscount && discountToken[k])
+
+    tokens[k] -= (tokens[k] * discountToken[k])/100;
+    if(discountToken[k])
     {
-        totalDiscount += 10;
-    }
-    if(flappyBirdDiscount && discountToken[k])
-    {
-        totalDiscount += 10;
-    }
-    if(numberGuessDiscount && discountToken[k])
-    {
-        totalDiscount += 5;
-    }
-    if(rockPaperScissorsDiscount && discountToken[k])
-    {
-        totalDiscount += 5;
-    }
-    tokens[k] -= (tokens[k] * totalDiscount)/100;
-    if(totalDiscount)
-    {
-        printf("\n\t\t\tTotal discount = %d%c",totalDiscount, '%');
+        printf("\n\t\t\tTotal discount = %d%c",discountToken[k], '%');
         printf("\n\t\t\tAfter discount = %d", tokens[k]);
     }
 
@@ -571,7 +556,7 @@ void Bill_Payment()
         flappyBirdDiscount = 0;
         numberGuessDiscount = 0;
         rockPaperScissorsDiscount = 0;
-        totalDiscount = 0;
+        discountToken[k] = 0;
     }
 
     printf("\n\n\t\t\t<Enter (1) to pay another bill.>\n\t\t\t<Enter (2) to go back main menu>\n\n\n\t\t\tEnter your choice: \t");
@@ -591,6 +576,11 @@ void Bill_Payment()
 //CENACE source code starts here
 int CENACE()
 {
+    auto_train_count = 0;
+    O_move_count = 0;
+    match = 1;
+    CENACEscore = 0;
+    humanScore = 0;
     system("title CENACE");
     system("COLOR 0B");
     system("cls");
