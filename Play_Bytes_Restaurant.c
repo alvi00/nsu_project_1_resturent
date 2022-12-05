@@ -48,7 +48,7 @@ int flappyBirdDiscount = 0;
 int numberGuessDiscount = 0;
 int rockPaperScissorsDiscount = 0;
 
-int token = 0,tokens[50],payment_counter=0;
+int token = 0,tokens[50], discountToken[50], payment_counter=0;
 
 
 
@@ -370,6 +370,7 @@ int discount()
             printf("\n\tCongratulations! You have got 10%c discount.\n",'%');
             getch();
             cenaceDiscount = 1;
+            discountToken[token] = 1;
         }
         else
         {
@@ -430,6 +431,7 @@ int discount()
             printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
             getch();
             numberGuessDiscount = 1;
+            discountToken[token] = 1;
         }
         else
         {
@@ -453,6 +455,7 @@ int discount()
             printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
             getch();
             rockPaperScissorsDiscount = 1;
+            discountToken[token] = 1;
         }
         else
         {
@@ -470,27 +473,27 @@ void Bill_Payment()
 
     int k,i,cash,changer,n, totalDiscount = 0;
     redo:
-    payment_counter++;
     system("cls");
     system("color 3F");
     printf("\n\n\n\t\t\tEnter your token number: ");
     scanf("%d",&k);
     printf("\n\t\t\tYour Total Bill is = %d",tokens[k]);
+    if(tokens[k]) payment_counter++;
 
     //calculating distount
-    if(cenaceDiscount)
+    if(cenaceDiscount && discountToken[k])
     {
         totalDiscount += 10;
     }
-    if(flappyBirdDiscount)
+    if(flappyBirdDiscount && discountToken[k])
     {
         totalDiscount += 10;
     }
-    if(numberGuessDiscount)
+    if(numberGuessDiscount && discountToken[k])
     {
         totalDiscount += 5;
     }
-    if(rockPaperScissorsDiscount)
+    if(rockPaperScissorsDiscount && discountToken[k])
     {
         totalDiscount += 5;
     }
@@ -562,11 +565,15 @@ void Bill_Payment()
     }
 
     tokens[k] = 0;
-    cenaceDiscount = 0; //0 = false, 1 = true
-    flappyBirdDiscount = 0;
-    numberGuessDiscount = 0;
-    rockPaperScissorsDiscount = 0;
-    totalDiscount = 0;
+    if(discountToken[k])
+    {
+        cenaceDiscount = 0; //0 = false, 1 = true
+        flappyBirdDiscount = 0;
+        numberGuessDiscount = 0;
+        rockPaperScissorsDiscount = 0;
+        totalDiscount = 0;
+    }
+
     printf("\n\n\t\t\t<Enter (1) to pay another bill.>\n\t\t\t<Enter (2) to go back main menu>\n\n\n\t\t\tEnter your choice: \t");
         scanf("%d",&n);
         if(n==2)
@@ -1497,7 +1504,7 @@ void number_guess_game()
             printf("Your score is :%d\n",number_guess_game_score);
             Sleep(1500);
             getch();
-            main();
+            break;
         }
         else if (guess < number)
         {
