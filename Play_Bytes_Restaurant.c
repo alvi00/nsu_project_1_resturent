@@ -254,7 +254,7 @@ int menu_order()
 
     }
     system("cls");
-    printf("\n\n\n\n\n\n\n\n\n\n\t\tThanks for your order. We are getting ready the dishes.\n\t\tUntil then, have some selfies with friends. Enjoy!\n\n\n\n\n\t\t\t  <Enter 1 to check your bill>\n\t\t\tEnter your choice: ");
+    printf("\n\n\n\n\n\n\n\n\n\n\t\tThanks for your order. We are getting ready the dishes.\n\t\tUntil then, have play games to get discount. Enjoy!\n\n\n\n\n\t\t\t  <Enter 1 to check your bill>\n\t\t\tEnter your choice: ");
 
     scanf("%d",&decision);
     printf("\n\n\n\n\n\n\n\n");
@@ -300,8 +300,21 @@ void Bill_show(int arID[],int arqty[],int counter)
     token ++;
     tokens[token]=sum;
     printf("\tYour token number is %d. Use this token while paying the bill.\n\n\n\n\n\t\t\t",token);
-    printf("<enter (1) to give another order>\n\n\t\t\t<enter (2) to go to the main menu>");
-    printf("\n\t\n\t\t\t<enter (3) to win some discount>");
+    //printf("<enter (1) to give another order>\n\n\t\t\t<enter (2) to go to the main menu>");
+   // printf("\n\t\n\t\t\t<enter (3) to win some discount>");
+    printf("\n\n");
+    printf("\t\t\t                        $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
+    printf("\t\t\t                        $                                  $\n");
+    printf("\t\t\t                        $    Select any of them -          $\n");
+    printf("\t\t\t                        $                                  $\n");
+    printf("\t\t\t                        $    1. to give another order.     $\n");
+    printf("\t\t\t                        $                                  $\n");
+    printf("\t\t\t                        $    2. to go to the main menu.    $\n");
+    printf("\t\t\t                        $                                  $\n");
+    printf("\t\t\t                        $    3. to win some discount.      $\n");
+    printf("\t\t\t                        $                                  $\n");
+    printf("\t\t\t                        $                                  $\n");
+    printf("\t\t\t                        $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
 
 
     do{
@@ -344,7 +357,7 @@ int discount()
 
     //Category 1
     system("cls");
-    printf("\n\n\tCategory 1: Choose any one of these two.......... discount: 10%c",'%');
+    printf("\n\n\tCategory 1: Play This Game To Get Discount: 10%c",'%');
 
     printf("\n\n\t\t1. Play Tic Tac Toe with CENACE");
     //printf("\n\n\t\t2. Play Flappy Bird");
