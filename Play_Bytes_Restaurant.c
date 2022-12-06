@@ -37,7 +37,7 @@ int  exit_CENACE;
 int  match, CENACEscore, humanScore;
 
 //Rock Paper Scissors globals
-int score;
+int score, rpsMatch;
 
 //Number Guess globals
 int number_guess_game_score;
@@ -48,7 +48,10 @@ int flappyBirdDiscount = 0;
 int numberGuessDiscount = 0;
 int rockPaperScissorsDiscount = 0;
 
+//Restaurant globals
 int token = 0,tokens[50], discountToken[50], payment_counter=0;
+int extraGameCharge[50];
+
 
 
 
@@ -66,7 +69,7 @@ void CENACE_intro();
 void updateGraphing_data();
 void updateGraphing_data();
 void scoreUpdate();
-void load();
+
 //Rock Paper Scissors functions
 void game();                            //full function for the game
 int rock_paper_scissors();
@@ -74,7 +77,7 @@ int rock_paper_scissors();
 //Number Guess functions
 int  number_guess();
 void number_guess_game();
-
+void load();
 
 
 int main_page();
@@ -378,12 +381,15 @@ int discount()
         system("cls");
         Sleep(250);
         CENACE();
+        if(match > 5) extraGameCharge[token] += (match - 5);
+
         if(match >= 5 && (humanScore > CENACEscore))
         {
             printf("\n\tCongratulations! You have got 10%c discount.\n",'%');
             getch();
             cenaceDiscount = 1;
             discountToken[token] += 10;
+
         }
         else
         {
@@ -433,13 +439,13 @@ int discount()
     if(choice == 1)// Play Number Guess
     {
         system("cls");
-        printf("\n\n\t\tPlay at least 5 matches to win discount");
+        printf("\n\n\t\tGuess the number to win discount");
         printf("\n\t\tPress any key to continue");
         getch();
         system("cls");
         Sleep(250);
         number_guess();
-        if(number_guess_game_score >= 5)
+        if(number_guess_game_score > 0)
         {
             printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
             getch();
@@ -454,15 +460,16 @@ int discount()
         }
     }
 
-    else if(choice == 2)
+    else if(choice == 2)// Play Rock paper scissors
     {
         system("cls");
-        printf("\n\n\t\tPlay at least 5 matches to win discount");
+        printf("\n\n\t\tScore at least 5 to win discount");
         printf("\n\t\tPress any key to continue");
         getch();
         system("cls");
         Sleep(250);
         rock_paper_scissors();
+        if(rpsMatch > 5) extraGameCharge[token] += (rpsMatch - 5);
         if(score >= 5)
         {
             printf("\n\tCongratulations! You have got 5%c discount.\n",'%');
@@ -490,14 +497,19 @@ void Bill_Payment()
     system("color 3F");
     printf("\n\n\n\t\t\tEnter your token number: ");
     scanf("%d",&k);
-    printf("\n\t\t\tYour Total Bill is = %d",tokens[k]);
+    printf("\n\t\t\tYour bill is = %d",tokens[k]);
     if(tokens[k]) payment_counter++;
 
+    if(extraGameCharge[k])
+    {
+        tokens[k] += extraGameCharge[k];
+        printf("\n\t\t\tExtra game charge = %d",extraGameCharge[k]);
+        printf("\n\t\t\tTotal bill = %d",tokens[k]);
+    }
     //calculating distount
-
-    tokens[k] -= (tokens[k] * discountToken[k])/100;
     if(discountToken[k])
     {
+        tokens[k] -= (int)((float)(tokens[k] * discountToken[k])/100 + 0.5);
         printf("\n\t\t\tTotal discount = %d%c",discountToken[k], '%');
         printf("\n\t\t\tAfter discount = %d", tokens[k]);
     }
@@ -570,6 +582,11 @@ void Bill_Payment()
         numberGuessDiscount = 0;
         rockPaperScissorsDiscount = 0;
         discountToken[k] = 0;
+
+    }
+    if(extraGameCharge[k])
+    {
+        extraGameCharge[k] = 0;
     }
 
     printf("\n\n\t\t\t<Enter (1) to pay another bill.>\n\t\t\t<Enter (2) to go back main menu>\n\n\n\t\t\tEnter your choice: \t");
@@ -594,6 +611,7 @@ int CENACE()
     match = 1;
     CENACEscore = 0;
     humanScore = 0;
+
     system("title CENACE");
     system("COLOR 0B");
     system("cls");
@@ -611,9 +629,9 @@ int CENACE()
     start:
     auto_train_count = 0;
     O_move_count = 0;
-    match = 1;
-    CENACEscore = 0;
-    humanScore = 0;
+//    match = 1;
+//    CENACEscore = 0;
+//    humanScore = 0;
 
     while(1)
     {
@@ -741,6 +759,12 @@ int CENACE()
         if(auto_train != 'y' && auto_train != 'Y')
         {
             char ask;
+            if(match == 5)
+            {
+                printf("\n\n\tYou have already played 5 matches.\n\tIf you play more taka 1 will be added to your bill per match.");
+                Beep(500,500);
+                getch();
+            }
             printf("\n\n\tPlay again? (y/n) --> ");
             while(1)
             {
@@ -1448,9 +1472,7 @@ void scoreUpdate()
 //Number Guess code starts here
 int number_guess()
 {
-    while(1)
-    {
-        printf("\n\n\t\t\t\t\tPlay At Least 5 times To Get Discount\n\n");
+
         printf("\n\n");
         printf("\t\t                        $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
         printf("\t\t                        $                                  $\n");
@@ -1482,7 +1504,7 @@ int number_guess()
         {
         printf("\n -----------------------You Entered Wrong Number------------------------\n  ------------------------Enter Correct Number------------------------\n");
         }
-    }
+
     return 0;
 }
 void number_guess_game()
@@ -1536,9 +1558,11 @@ void number_guess_game()
 //Rock paper scissors starts here
 int rock_paper_scissors()
 {
+    score = 0;
+    rpsMatch = 1;
     while(1)
     {
-        printf("\n\n\t\t\t\t\tPlay At Least 5 times To Get Discount\n\n");
+        printf("\n\n\t\t\t\t\tYou can play 5 times\n\n");
         printf("\n\n");
         printf("\t\t                        $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
         printf("\t\t                        $                                  $\n");
@@ -1556,8 +1580,13 @@ int rock_paper_scissors()
         scanf("%d",&a);
         system("cls");
 
+        if(rpsMatch == 5)
+                printf("\n\n\tYou have already played 5 matches.\n\tIf you play more taka 1 will be added to your bill per match.");
+
         if(a==1)
         {
+            rpsMatch ++;
+
             load();
             game();
         }
@@ -1666,6 +1695,8 @@ void game()
     getch();
     system("cls");
 }
+//Rock paper scissors ends here
+
 void load()
 {
     int r,q;
@@ -1673,8 +1704,7 @@ void load()
     for(r=1;r<=20;r++){
     for(q=0;q<=100000000;q++);   //to display the character slowly
     printf("%c",177);}
-    getch();
     system("cls");
 }
 
-//Rock paper scissors ends here
+
