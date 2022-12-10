@@ -67,8 +67,8 @@ void updateLearning_data();
 void menu();
 void CENACE_intro();
 void updateGraphing_data();
-void updateGraphing_data();
 void scoreUpdate();
+
 
 //Rock Paper Scissors functions
 void game();                            //full function for the game
@@ -226,7 +226,7 @@ int menu_order()
 
     printf("\n\tDRINKS :\n\n");
     printf("\t23. Coca-Cola      ........................ 40/=\n");
-    printf("\t24. Pepsi        ........................ 40/=\n");
+    printf("\t24. Pepsi          ........................ 40/=\n");
     printf("\t25. Mountain Dew   ........................ 40/=\n");
     printf("\t26. Water          ........................ 15/=\n");
     printf("\n\n\tOrder your dish: (Enter 0 to finish order)\n");
@@ -291,11 +291,11 @@ void Bill_show(int arID[],int arqty[],int counter)
     int i,sum=0;
     int costs[100]={90,130,150,170,190,220,250,250,270,350,190,105,560,999,350,450,770,550,190,190,190,190,40,40,40,15};
     char items[100][100]={"French Fries (150gm)","Chicken Fingers(5PCS)","Chicken Burger","Chicken Cheese Burger","Smocky BBQ Cheese Burger","Chicken with Baccon Burger","Chicken with sausage Burger","Chicken Cheese Blast Burger","Double Decker Chicken Cheese Burger","Giganto Chicken","Chicken Breast","Chicken Wings","Boneless Strips","Hot and Crispy Chicken Bucket","Spicy Sausage","Creamy Chicken & Sausage","Kolongko - The Disgrace","Simple Er Modhe Gorgeous (SMG)","Choco Fudge","Velvety Red","Oreo & Cheese","Tiro-Miss-U","Coca-Cola","Pepsi","Mountain Dew","Water"};
-    printf("\n\nYour Bill:\n\n\n\t\tItem(s)\t\t     Quantity\t\t    Cost\n\n\n\n");
+    printf("\n\nYour Bill:\n\n\n\t\tItem(s)\t\t\t\t     Quantity\t\t\t Cost\n\n\n\n");
 
     for(i=0;i<counter;i++)
     {
-        printf("\t%2d. %-16s ________\t%-5d piece(s) ____ %7d\n",i+1,items[arID[i]-1],arqty[i],arqty[i]*costs[arID[i]-1]);
+        printf("\t%2d. %-30s ________\t%-5d piece(s) ____ %7d\n",i+1,items[arID[i]-1],arqty[i],arqty[i]*costs[arID[i]-1]);
         sum=sum+(costs[arID[i]-1]*arqty[i]);
     }
 
@@ -360,7 +360,7 @@ int discount()
 
     //Category 1
     system("cls");
-    printf("\n\n\tCategory 1: Play This Game To Get Discount: 10%c",'%');
+    printf("\n\n\tCategory 1: Play this game to get discount: 10%c",'%');
 
     printf("\n\n\t\t1. Play Tic Tac Toe with CENACE");
     //printf("\n\n\t\t2. Play Flappy Bird");
@@ -424,7 +424,7 @@ int discount()
 
     //Category 2
     system("cls");
-    printf("\n\n\tCategory 2: Choose any one of these two.......... discount: 5%c",'%');
+    printf("\n\n\tCategory 2: Play any one of these games to get discount: 5%c",'%');
 
     printf("\n\n\t\t1. Play Number Guess");
     printf("\n\n\t\t2. Play Rock paper scissors");
@@ -1706,5 +1706,4 @@ void load()
     printf("%c",177);}
     system("cls");
 }
-
 
